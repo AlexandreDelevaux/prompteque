@@ -7,7 +7,8 @@ export default function Accueil() {
       <h1>Vos prompts, rangés</h1>
       <p className="intro">
         Les prompts de la semaine 1, recopiés des ateliers. Cherchez par mot,
-        par outil ou par tag.
+        par outil ou par tag. Le menu latéral range aussi les MCP, les commandes
+        et les skills.
       </p>
       <Recherche prompts={prompts} />
     </>
