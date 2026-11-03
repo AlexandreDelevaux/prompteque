@@ -46,5 +46,13 @@
     "tags": ["plan", "méthode", "organisation"],
     "contenu": "---\ndescription: Transformer une demande en plan d'action court et vérifiable\n---\n\nTransforme la demande en un plan d'action court, sans écrire de code.\n\nDemande : $ARGUMENTS\n\nPoints de contrôle :\n1. Reformule l'objectif en une phrase, avec le résultat attendu.\n2. Découpe le travail en trois à six étapes ordonnées.\n3. Donne pour chaque étape les fichiers concernés et un critère de réussite vérifiable.\n4. Signale les risques, les inconnues et les décisions à prendre.\n5. Ne prévois aucune étape qui ne serve pas l'objectif.\n\nFormat de la réponse :\n- **Objectif** : une phrase.\n- **Étapes** : liste numérotée, une ligne par étape avec son critère.\n- **Risques** : deux ou trois puces.\n- **Première action** : la commande ou le fichier à ouvrir.",
     "source": "Commande · /plan"
+  },
+  {
+    "id": "inspection",
+    "titre": "Inspection des travaux finis",
+    "description": "Lance le sous-agent inspecteur sur un périmètre donné : il vérifie les commits, les tests et les captures, puis rend son rapport sans rien corriger.",
+    "tags": ["inspection", "tests", "captures"],
+    "contenu": "---\ndescription: Faire inspecter un périmètre par l'inspecteur et rendre son rapport\n---\n\nFais inspecter le travail fini par le sous-agent `inspecteur`, sans rien corriger toi-même.\n\nPérimètre : $ARGUMENTS\n\nDéroulé :\n1. Reformule le travail attendu et ses critères d'acceptation en trois lignes.\n2. Lance le sous-agent `inspecteur` sur ce périmètre, avec ces critères.\n3. Laisse-le vérifier les commits, lancer les tests et produire les captures.\n4. Ne corrige aucun constat à sa place : tu transmets son rapport tel quel.\n\nRapport attendu, dans cet ordre et sans rien omettre :\n- VERDICT : VALIDÉ, À CORRIGER ou BLOQUÉ\n- TRAVAUX INSPECTÉS\n- CONTRÔLES\n- CAPTURES\n- ANOMALIES\n- RECOMMANDATIONS\n- CONCLUSION\n\nTermine par une ligne indiquant la prochaine action concrète.",
+    "source": "Commande · /inspection"
   }
 ]

@@ -46,5 +46,13 @@
     "tags": ["bilan", "méthode", "prompts"],
     "contenu": "---\nname: bilan-session\ndescription: Tirer d'une session des règles et des prompts réutilisables.\n---\n\nUtilise cette skill en fin de session, quand je demande un bilan ou une rétrospective.\n\n1. Relis les échanges et repère les décisions et les erreurs récurrentes.\n2. Note ce qui a bien fonctionné et ce qui a coûté du temps.\n3. Transforme chaque leçon en règle courte et applicable.\n4. Propose un ou deux prompts réutilisables, prêts à copier.\n5. Ne refais pas le travail livré : commente-le seulement.\n\nRésultat attendu : trois sections courtes — règles retenues, prompts réutilisables, points à surveiller.",
     "source": "Skill · bilan-session"
+  },
+  {
+    "id": "inspection-visuelle",
+    "titre": "Inspection visuelle",
+    "description": "À utiliser avant de déclarer un travail terminé : la skill lance les captures Playwright, lit le manifeste et les images desktop et mobile, puis vérifie le rendu.",
+    "tags": ["inspection", "captures", "rendu"],
+    "contenu": "---\nname: inspection-visuelle\ndescription: Lancer les captures, lire le manifeste et les images, puis vérifier le rendu avant de déclarer un travail terminé.\n---\n\nUtilise cette skill avant de déclarer terminé un travail qui touche l'interface.\n\n1. Vérifie que les tests passent : `npm test`, puis `npx tsc --noEmit`.\n2. Lance les captures : `npm run captures`. Le dossier horodaté apparaît dans `captures/AAAA/MM/JJ/HHMMSS/`.\n3. Lis le `manifeste.json` du dernier dossier et vérifie que chaque page attendue y figure, en desktop et en mobile.\n4. Ouvre avec l'outil `read` une image desktop par page et au moins une image mobile.\n5. Contrôle le menu latéral, les compteurs, les titres, les cartes, les débordements et les pages vides.\n6. Compare desktop et mobile : rien ne doit être coupé, superposé ni illisible.\n7. Si une capture manque ou montre une page cassée, signale-le comme une anomalie et ne déclare pas le travail terminé.\n\nRésultat attendu : le chemin du dossier de captures, la liste des images inspectées et un verdict clair sur le rendu.",
+    "source": "Skill · inspection-visuelle"
   }
 ]
