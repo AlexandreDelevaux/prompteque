@@ -24,6 +24,14 @@ Au premier lancement, installer le navigateur Playwright : `npx playwright insta
 
 Les tests Playwright démarrent le serveur de développement si nécessaire (ou réutilisent celui qui écoute déjà sur le port 3000), parcourent les fiches accessibles depuis chaque onglet et vérifient que le bouton de copie alimente le presse-papiers avec le contenu complet.
 
+## Captures visuelles
+
+```bash
+npm run captures
+```
+
+Le script démarre le serveur si besoin, capture chaque onglet en desktop et en mobile, puis écrit les images dans `captures/AAAA/MM/JJ/HHMMSS/` avec un `manifeste.json`. `captures/index.json` garde une entrée par passage : c'est l'historique visuel du site, versionné avec le code.
+
 ## Construire
 
 ```bash
@@ -45,6 +53,8 @@ La recherche filtre les fiches sur leur titre, leur texte, leur description, leu
 - `components/BoutonCopier.tsx` : le bouton de copie dans le presse-papiers.
 - `lib/` : la recherche, les ressources, l'estimation des tokens, le coût d'envoi, les tarifs des modèles, l'export en Markdown.
 - `data/prompts.json`, `data/mcp.json`, `data/commandes.json`, `data/skills.json` : le contenu des onglets.
+- `scripts/captures.mjs` : les captures Playwright horodatées.
+- `captures/` : l'archive visuelle versionnée, avec un dossier par passage et un index.
 - `prompteque.config.json` : les réglages (titre, devise, modèle par défaut, prompts par page).
 - `tests/` : les tests Vitest ; `tests/e2e/` : les tests Playwright.
 

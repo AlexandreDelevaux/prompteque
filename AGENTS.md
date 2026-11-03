@@ -21,6 +21,7 @@ Node >= 22.12.
 - Unit tests: `npm test` (Vitest, `tests/*.test.ts`; e2e excluded in `vitest.config.mts`)
 - Single unit test: `npx vitest run tests/recherche.test.ts -t "ignore la casse"`
 - Browser tests: `npm run test:e2e` (Playwright; specs in `tests/e2e/`; first run needs `npx playwright install chromium`)
+- Captures: `npm run captures` (Playwright; archive dans `captures/AAAA/MM/JJ/HHMMSS/`)
 - Single browser test: `npx playwright test tests/e2e/copier-prompt.spec.ts -g "chaque fiche"`
 - Typecheck: `npx tsc --noEmit` (there is no lint or format script)
 - Production: `npm run build && npm start`
@@ -36,6 +37,8 @@ On this machine Node is not on PATH. Prefix commands with
 - `app/prompt/[id]/page.tsx` awaits `params` (Next 16 async params), uses `generateStaticParams()` over `data/prompts.json`, and renders token/cost estimates. It embeds the client component `components/BoutonCopier.tsx`, which copies the full prompt and shows an alert if clipboard access fails.
 - `app/api/prompts/route.ts` is `GET /api/prompts`: returns the full array, with no query or pagination. `app/api/ressources/[type]/route.ts` does the same for `mcp`, `commandes` and `skills`.
 - `lib/` holds pure functions (`rechercher`, `estimerTokens`, `coutEnvoi`, `exporterEnMarkdown`), the hardcoded `MODELES` price table, and `ressources.ts` which loads the three resource files.
+- `scripts/captures.mjs` captures every tab in desktop and mobile with Playwright, writes a `manifeste.json` and appends a run to `captures/index.json`.
+- `captures/` is the versioned visual archive: one dated folder per run (`AAAA/MM/JJ/HHMMSS/`). Do not ignore it in Git; it is the long-term visual history.
 - `data/prompts.json` is imported directly; there is no schema validation. The same goes for `data/mcp.json`, `data/commandes.json` and `data/skills.json`.
 
 ## Conventions
@@ -53,7 +56,7 @@ On this machine Node is not on PATH. Prefix commands with
 - `orchestrateur` (primary) : fait le bilan de fin de session, en tire les fiches, les fait écrire par le curateur, vérifie le fichier, puis fait relire. `edit` et `shell` sont refusés : il ne modifie jamais un fichier lui-même.
 - `curateur` (all) : seul agent autorisé à écrire dans `data/prompts.json`.
 - `relecteur` (subagent) : relit le périmètre qu'on lui donne et termine par `VERDICT: conforme` ou `VERDICT: non conforme`.
-- `inspecteur` (subagent, lecture seule) : contrôle le travail réalisé, le périmètre, la cohérence et les tests, puis rend un verdict `VALIDÉ`, `À CORRIGER` ou `BLOQUÉ`. Il ne modifie jamais un fichier.
+- `inspecteur` (subagent, lecture seule sauf `captures/`) : contrôle le travail réalisé, la discipline de commit, les tests et le rendu visuel. Il lance `npm run captures`, lit les images et rend un verdict `VALIDÉ`, `À CORRIGER` ou `BLOQUÉ`. Il ne modifie jamais une source et ne commite jamais.
 
 La commande `/fin-de-session` lance `orchestrateur` ; son périmètre est passé en argument (« rapide » pour un bilan court).
 
