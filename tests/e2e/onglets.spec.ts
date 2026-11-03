@@ -44,4 +44,22 @@ test.describe("menu latéral", () => {
       await expect(page.getByRole("status")).toContainText("copié");
     }
   });
+
+  test("les fiches d'inspection sont accessibles", async ({ page }) => {
+    await page.goto("/commandes");
+    await page
+      .getByRole("link", { name: /Inspection des travaux finis/ })
+      .click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "Inspection des travaux finis",
+    );
+    await expect(page.locator("pre.texte")).toContainText("sous-agent");
+
+    await page.goto("/skills");
+    await page.getByRole("link", { name: /Inspection visuelle/ }).click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "Inspection visuelle",
+    );
+    await expect(page.locator("pre.texte")).toContainText("run captures");
+  });
 });

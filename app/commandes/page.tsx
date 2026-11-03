@@ -11,7 +11,7 @@ export default function PageCommandes() {
   return (
     <Catalogue
       titre="Commandes"
-      intro="Les commandes OpenCode qui raccourcissent le travail courant : bilan, commit, revue, tests, explication et plan."
+      intro="Les commandes OpenCode qui raccourcissent le travail courant : bilan, commit, revue, tests, explication, plan et inspection."
       badge="Commande"
       base="/commandes"
       placeholder="Chercher : commit, tests, revue…"

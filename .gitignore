@@ -18,6 +18,8 @@
 
 # next.js
 /.next/
+/.next-captures/
+/.next-e2e/
 /out/
 
 # production

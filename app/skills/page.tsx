@@ -11,7 +11,7 @@ export default function PageSkills() {
   return (
     <Catalogue
       titre="Skills"
-      intro="Les skills qui donnent une méthode à l'agent : commit, revue, test, documentation, sécurité et bilan."
+      intro="Les skills qui donnent une méthode à l'agent : commit, revue, test, documentation, sécurité, bilan et inspection visuelle."
       badge="Skill"
       base="/skills"
       placeholder="Chercher : commit, sécurité, tests…"

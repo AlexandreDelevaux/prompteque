@@ -1,27 +1,43 @@
 import { execFileSync, execSync, spawn } from "node:child_process";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { chromium } from "playwright";
 
 const base = process.env.CAPTURE_URL ?? "http://localhost:3000";
 const racine = process.env.CAPTURE_DIR ?? "captures";
+const dossierBuild = ".next-captures";
 const maintenant = new Date();
 const deux = (valeur) => String(valeur).padStart(2, "0");
 const horodatage = `${maintenant.getFullYear()}/${deux(maintenant.getMonth() + 1)}/${deux(maintenant.getDate())}/${deux(maintenant.getHours())}${deux(maintenant.getMinutes())}${deux(maintenant.getSeconds())}`;
 const dossier = path.join(racine, ...horodatage.split("/"));
 
+const lireDonnees = async (nom) =>
+  JSON.parse(await readFile(path.join("data", `${nom}.json`), "utf8"));
+
+const [mcps, commandes, skills] = await Promise.all([
+  lireDonnees("mcp"),
+  lireDonnees("commandes"),
+  lireDonnees("skills"),
+]);
+
+const dernier = (liste) => liste[liste.length - 1].id;
+
 const pages = [
   { chemin: "/", nom: "01-accueil", mobile: true },
   { chemin: "/mcp", nom: "02-mcp", mobile: true },
-  { chemin: "/mcp/context7", nom: "03-mcp-context7", mobile: false },
+  { chemin: `/mcp/${mcps[0].id}`, nom: "03-mcp-detail", mobile: false },
   { chemin: "/commandes", nom: "04-commandes", mobile: true },
   {
-    chemin: "/commandes/fin-de-session",
-    nom: "05-commande-fin-de-session",
+    chemin: `/commandes/${dernier(commandes)}`,
+    nom: "05-commande-detail",
     mobile: false,
   },
   { chemin: "/skills", nom: "06-skills", mobile: true },
-  { chemin: "/skills/commit-propre", nom: "07-skill-commit-propre", mobile: false },
+  {
+    chemin: `/skills/${dernier(skills)}`,
+    nom: "07-skill-detail",
+    mobile: false,
+  },
 ];
 
 const formats = [
@@ -67,9 +83,14 @@ if (!html?.includes("Prompthèque")) {
     "bin",
     "next",
   );
+  await rm(path.join(process.cwd(), dossierBuild), {
+    recursive: true,
+    force: true,
+  });
   serveur = spawn(process.execPath, [nextBin, "dev"], {
     stdio: "ignore",
     windowsHide: true,
+    env: { ...process.env, NEXT_DIST_DIR: dossierBuild },
   });
 
   if (!(await attendreServeur())) {
@@ -139,6 +160,10 @@ try {
     } else {
       serveur.kill("SIGTERM");
     }
+    await rm(path.join(process.cwd(), dossierBuild), {
+      recursive: true,
+      force: true,
+    });
   }
 }
 
