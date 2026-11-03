@@ -31,10 +31,12 @@ On this machine Node is not on PATH. Prefix commands with
 ## Architecture
 
 - `app/page.tsx` is a server component that passes all prompts to `components/Recherche.tsx`. Filtering happens in the browser; the API is not used by the UI.
+- `app/mcp/`, `app/commandes/` and `app/skills/` follow the same pattern for the other tabs: a list page rendered by `components/Catalogue.tsx` and a static detail page per entry rendered by `components/FicheRessource.tsx`.
+- `app/layout.tsx` renders `components/MenuLateral.tsx` (client component, active state from `usePathname`) beside `<main>`; the menu shows the count of each tab.
 - `app/prompt/[id]/page.tsx` awaits `params` (Next 16 async params), uses `generateStaticParams()` over `data/prompts.json`, and renders token/cost estimates. It embeds the client component `components/BoutonCopier.tsx`, which copies the full prompt and shows an alert if clipboard access fails.
-- `app/api/prompts/route.ts` is `GET /api/prompts`: returns the full array, with no query or pagination.
-- `lib/` holds pure functions (`rechercher`, `estimerTokens`, `coutEnvoi`, `exporterEnMarkdown`) and the hardcoded `MODELES` price table.
-- `data/prompts.json` is imported directly; there is no schema validation.
+- `app/api/prompts/route.ts` is `GET /api/prompts`: returns the full array, with no query or pagination. `app/api/ressources/[type]/route.ts` does the same for `mcp`, `commandes` and `skills`.
+- `lib/` holds pure functions (`rechercher`, `estimerTokens`, `coutEnvoi`, `exporterEnMarkdown`), the hardcoded `MODELES` price table, and `ressources.ts` which loads the three resource files.
+- `data/prompts.json` is imported directly; there is no schema validation. The same goes for `data/mcp.json`, `data/commandes.json` and `data/skills.json`.
 
 ## Conventions
 
@@ -42,6 +44,7 @@ On this machine Node is not on PATH. Prefix commands with
 - Styling is plain CSS in `app/globals.css` using existing classes (`carte`, `grille`, `champ`, `detail`, `tags`); no Tailwind or CSS modules.
 - Path alias `@/*` maps to the repo root.
 - To add a prompt, edit `data/prompts.json` only: unique lowercase kebab-case `id`, `jour` 1–10, lowercase `tags`. The static detail page is generated automatically.
+- To add an MCP, a command or a skill, edit the matching file in `data/` (`mcp.json`, `commandes.json`, `skills.json`): unique lowercase kebab-case `id`, lowercase `tags`, plus `titre`, `description`, `contenu` and `source`. The list and detail pages are generated automatically.
 
 ## Agents OpenCode
 
@@ -59,7 +62,7 @@ Les orchestrateurs ne peuvent lancer que `curateur` et `relecteur`. Le dossier n
 ## Known inconsistencies (verify intent before "fixing")
 
 - `prompteque.config.json` is not imported anywhere; editing it has no runtime effect. `USD` is hardcoded in `app/prompt/[id]/page.tsx` and prices are hardcoded in `lib/modeles.ts`.
-- The README says search ignores accents, but `lib/recherche.ts` only lowercases; `securite` does not match `sécurité`.
+- The README now says search is case-insensitive but accent-sensitive: `lib/recherche.ts` only lowercases, so `securite` does not match `sécurité`.
 - `lib/tokens.ts` computes words/4 while its comment and the UI say "1 token ≈ 4 characters"; `lib/cout.ts` divides tokens by 1,000 although prices are per million (displayed cost is 1000× too high).
-- Unit tests cover only `rechercher`; no jsdom or React Testing Library is installed for component tests.
+- Unit tests cover `rechercher` and the resource invariants; no jsdom or React Testing Library is installed for component tests.
 - Playwright is installed as the `playwright` package and specs import from `playwright/test` (not `@playwright/test`). The config reuses an existing dev server on `localhost:3000`; Next 16 refuses a second dev server in the same directory, so do not point it at another port while one is running.

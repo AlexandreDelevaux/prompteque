@@ -1,0 +1,50 @@
+[
+  {
+    "id": "commit-propre",
+    "titre": "Commit propre",
+    "description": "À utiliser quand un changement est prêt à être indexé : la skill rédige un message de commit court, typé et en français, puis le montre avant toute validation.",
+    "tags": ["git", "commit", "méthode"],
+    "contenu": "---\nname: commit-propre\ndescription: Message de commit clair, quand je demande de commiter.\n---\n\nUtilise cette skill quand un changement est prêt à être commité.\n\n1. Lis le diff indexé et repère les fichiers concernés.\n2. Résume l'intention du changement en une phrase.\n3. Choisis le type : feat, fix, docs, refactor, test ou chore.\n4. Rédige le message au format \"type: description\", en français et à l'impératif.\n5. Montre le message et attends la confirmation avant de commiter.\n\nRésultat attendu : un bloc avec le message proposé, le type retenu et la liste des fichiers indexés.",
+    "source": "Skill · commit-propre"
+  },
+  {
+    "id": "revue-code",
+    "titre": "Revue de code",
+    "description": "À utiliser pour relire un diff ou un fichier avant fusion : la skill produit des constats classés par gravité, sans réécrire le code à la place de l'auteur.",
+    "tags": ["revue", "qualité", "git"],
+    "contenu": "---\nname: revue-code\ndescription: Relecture d'un changement, quand je demande une revue de code.\n---\n\nUtilise cette skill quand je te demande de relire un diff, un fichier ou une branche.\n\n1. Délimite le périmètre relu et annonce-le.\n2. Lis le changement en entier avant de commenter.\n3. Classe chaque constat par gravité : bloquant, important, mineur.\n4. Cite le fichier et la ligne, explique le risque, propose une correction.\n5. Termine par un verdict clair : à fusionner, à corriger ou à revoir.\n\nRésultat attendu : une liste de constats numérotés, du plus grave au plus léger, suivie du verdict.",
+    "source": "Skill · revue-code"
+  },
+  {
+    "id": "test-first",
+    "titre": "Test d'abord",
+    "description": "À utiliser quand un bug est signalé ou qu'une fonctionnalité commence : la skill écrit ou répare un test qui échoue avant de toucher au code.",
+    "tags": ["test", "tdd", "qualité"],
+    "contenu": "---\nname: test-first\ndescription: Écrire ou réparer un test avant de modifier le code.\n---\n\nUtilise cette skill quand un bug est signalé ou qu'une fonctionnalité démarre.\n\n1. Reformule le comportement attendu en une phrase.\n2. Repère le test existant le plus proche ou crée le fichier de test.\n3. Écris un test qui échoue pour la bonne raison.\n4. Lance le test seul et montre l'échec.\n5. Modifie le code jusqu'à ce que le test passe, sans affaiblir l'assertion.\n6. Relance la suite complète.\n\nRésultat attendu : le test ajouté ou réparé, la sortie avant et après, et la commande utilisée.",
+    "source": "Skill · test-first"
+  },
+  {
+    "id": "documentation",
+    "titre": "Documentation",
+    "description": "À utiliser pour documenter un module existant : la skill décrit son rôle, ses entrées et ses limites, sans reformuler ligne à ligne ce que le code fait déjà.",
+    "tags": ["documentation", "méthode"],
+    "contenu": "---\nname: documentation\ndescription: Documenter un module sans paraphraser le code.\n---\n\nUtilise cette skill quand je demande la documentation d'un module ou d'une fonction.\n\n1. Lis le module et note son rôle en une phrase.\n2. Liste les entrées, les sorties et les effets de bord.\n3. Relève les limites, les erreurs possibles et les prérequis.\n4. Rédige un exemple d'utilisation minimal et vérifiable.\n5. Supprime tout ce qui répète le code ligne à ligne.\n\nRésultat attendu : une section avec le rôle, les entrées et sorties, les limites et un exemple d'appel.",
+    "source": "Skill · documentation"
+  },
+  {
+    "id": "securite",
+    "titre": "Sécurité",
+    "description": "À utiliser avant une mise en ligne : la skill vérifie les secrets exposés, les dépendances obsolètes et la validation des entrées, puis liste les risques à corriger.",
+    "tags": ["sécurité", "dépendances", "secrets"],
+    "contenu": "---\nname: securite\ndescription: Vérifier secrets, dépendances et entrées avant une mise en ligne.\n---\n\nUtilise cette skill avant une mise en ligne ou quand je parle de sécurité.\n\n1. Cherche les secrets en clair dans le code, les fichiers de configuration et l'historique.\n2. Vérifie que chaque secret est lu depuis une variable d'environnement.\n3. Passe les dépendances en revue et signale les versions obsolètes.\n4. Contrôle la validation des entrées côté serveur.\n5. Classe les risques trouvés et indique la correction attendue.\n\nRésultat attendu : un tableau des risques avec la gravité, le fichier concerné et la correction à appliquer.",
+    "source": "Skill · securite"
+  },
+  {
+    "id": "bilan-session",
+    "titre": "Bilan de session",
+    "description": "À utiliser en fin de session : la skill relit les échanges, en tire des règles durables et propose des prompts réutilisables, sans refaire le travail déjà livré.",
+    "tags": ["bilan", "méthode", "prompts"],
+    "contenu": "---\nname: bilan-session\ndescription: Tirer d'une session des règles et des prompts réutilisables.\n---\n\nUtilise cette skill en fin de session, quand je demande un bilan ou une rétrospective.\n\n1. Relis les échanges et repère les décisions et les erreurs récurrentes.\n2. Note ce qui a bien fonctionné et ce qui a coûté du temps.\n3. Transforme chaque leçon en règle courte et applicable.\n4. Propose un ou deux prompts réutilisables, prêts à copier.\n5. Ne refais pas le travail livré : commente-le seulement.\n\nRésultat attendu : trois sections courtes — règles retenues, prompts réutilisables, points à surveiller.",
+    "source": "Skill · bilan-session"
+  }
+]

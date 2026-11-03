@@ -1,0 +1,50 @@
+[
+  {
+    "id": "context7",
+    "titre": "Context7, la documentation à jour",
+    "description": "Context7 fournit à l'agent une documentation à jour des bibliothèques et frameworks, indexée par version, pour éviter les API obsolètes et les réponses fondées sur des souvenirs imprécis.",
+    "tags": ["documentation", "mcp", "recherche"],
+    "contenu": "{\n  \"mcp\": {\n    \"context7\": {\n      \"type\": \"remote\",\n      \"url\": \"https://mcp.context7.com/mcp\"\n    }\n  }\n}\n\nAucune installation ni authentification requise : le serveur distant s'utilise tel quel.",
+    "source": "MCP · documentation"
+  },
+  {
+    "id": "playwright",
+    "titre": "Playwright pour le navigateur",
+    "description": "Playwright MCP pilote un navigateur Chromium pour que l'agent ouvre des pages, clique, remplisse des formulaires et lise le DOM, ce qui facilite les tests et le débogage.",
+    "tags": ["navigateur", "tests", "mcp"],
+    "contenu": "{\n  \"mcp\": {\n    \"playwright\": {\n      \"type\": \"local\",\n      \"command\": [\"npx\", \"@playwright/mcp@latest\"]\n    }\n  }\n}\n\nnpx playwright install chromium",
+    "source": "MCP · navigateur"
+  },
+  {
+    "id": "github",
+    "titre": "GitHub : dépôts et pull requests",
+    "description": "Le serveur GitHub expose dépôts, issues et pull requests à l'agent, qui peut consulter le code, suivre les tâches et préparer des revues sans quitter sa session.",
+    "tags": ["git", "issues", "mcp"],
+    "contenu": "{\n  \"mcp\": {\n    \"github\": {\n      \"type\": \"remote\",\n      \"url\": \"https://api.githubcopilot.com/mcp/\"\n    }\n  }\n}\n\nopencode mcp auth github",
+    "source": "MCP · dépôts"
+  },
+  {
+    "id": "filesystem",
+    "titre": "Fichiers locaux avec Filesystem",
+    "description": "Filesystem donne à l'agent un accès contrôlé à un dossier local : il peut lister, lire, écrire et déplacer des fichiers, sans sortir du périmètre autorisé au lancement.",
+    "tags": ["fichiers", "local", "mcp"],
+    "contenu": "{\n  \"mcp\": {\n    \"filesystem\": {\n      \"type\": \"local\",\n      \"command\": [\"npx\", \"-y\", \"@modelcontextprotocol/server-filesystem\", \"/chemin/vers/dossier\"]\n    }\n  }\n}\n\nnpx -y @modelcontextprotocol/server-filesystem /chemin/vers/dossier",
+    "source": "MCP · fichiers"
+  },
+  {
+    "id": "sqlite",
+    "titre": "Requêtes SQLite locales",
+    "description": "SQLite MCP interroge une base SQLite locale : l'agent liste les tables, lit le schéma et exécute des requêtes SQL pour explorer ou modifier les données locales.",
+    "tags": ["sqlite", "base-de-donnees", "mcp"],
+    "contenu": "{\n  \"mcp\": {\n    \"sqlite\": {\n      \"type\": \"local\",\n      \"command\": [\"uvx\", \"mcp-server-sqlite\", \"--db-path\", \"/chemin/vers/base.db\"]\n    }\n  }\n}\n\nuvx mcp-server-sqlite --db-path /chemin/vers/base.db",
+    "source": "MCP · base de données"
+  },
+  {
+    "id": "sentry",
+    "titre": "Erreurs Sentry en production",
+    "description": "Sentry MCP remonte à l'agent les erreurs et traces de production : il consulte les incidents, suit les traces et rassemble le contexte utile au diagnostic.",
+    "tags": ["erreurs", "production", "mcp"],
+    "contenu": "{\n  \"mcp\": {\n    \"sentry\": {\n      \"type\": \"remote\",\n      \"url\": \"https://mcp.sentry.dev/mcp\"\n    }\n  }\n}\n\nopencode mcp auth sentry",
+    "source": "MCP · supervision"
+  }
+]

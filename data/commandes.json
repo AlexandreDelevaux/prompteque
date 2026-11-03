@@ -1,0 +1,50 @@
+[
+  {
+    "id": "fin-de-session",
+    "titre": "Fin de session",
+    "description": "Clôture une session de travail en critiquant les prompts utilisés, en tirant les leçons et en produisant des fiches réutilisables pour la prompthèque.",
+    "tags": ["bilan", "session", "méthode"],
+    "contenu": "---\ndescription: Bilan de la session et fiches réutilisables\n---\n\nFais le bilan de cette session de travail.\n\nPérimètre : $ARGUMENTS\n\nPoints de contrôle :\n1. Repère les prompts qui ont mal fonctionné et explique pourquoi.\n2. Distingue ce qui relève de la consigne, du contexte ou du modèle.\n3. Propose une à trois fiches réutilisables, sans doublon avec l'existant.\n4. Vérifie que chaque fiche tient en une consigne claire et un format de sortie.\n\nFormat de la réponse :\n- **Ce qui a marché** : deux ou trois lignes.\n- **Ce qui a échoué** : cause probable pour chaque échec.\n- **Fiches proposées** : titre, description, contenu prêt à coller.\n- **Prochaine étape** : une action concrète.",
+    "source": "Commande · /fin-de-session"
+  },
+  {
+    "id": "commit",
+    "titre": "Message de commit",
+    "description": "Rédige un message de commit au format `type: description` à partir des changements indexés, en respectant la convention du dépôt et en restant factuel.",
+    "tags": ["git", "commit", "rédaction"],
+    "contenu": "---\ndescription: Rédiger un message de commit au format type: description\n---\n\nRédige le message de commit des changements indexés.\n\nPrécisions éventuelles : $ARGUMENTS\n\nPoints de contrôle :\n1. Lis le diff indexé et ne décris que ce qu'il contient.\n2. Utilise un type parmi feat, fix, docs, refactor, test, chore.\n3. Écris la description à l'impératif, en minuscules, sans point final.\n4. Ajoute un corps seulement si le pourquoi n'est pas évident.\n5. Reste sous 72 caractères pour la première ligne.\n\nFormat de la réponse :\n- Le message prêt à copier, dans un bloc de code.\n- Une ligne expliquant le choix du type.",
+    "source": "Commande · /commit"
+  },
+  {
+    "id": "revue",
+    "titre": "Revue de code",
+    "description": "Relit un diff ou des fichiers et rend des constats classés par gravité, avec la localisation, la cause et une correction suggérée.",
+    "tags": ["revue", "qualité", "code"],
+    "contenu": "---\ndescription: Relire un diff ou des fichiers et classer les constats par gravité\n---\n\nRelis le périmètre demandé et rends une revue sans modifier aucun fichier.\n\nPérimètre : $ARGUMENTS\n\nPoints de contrôle :\n1. Lis le code avant de conclure, sans supposer l'intention.\n2. Classe chaque constat en bloquant, majeur ou mineur.\n3. Cite le fichier et la ligne pour chaque constat.\n4. Propose une correction concrète, ou dis clairement qu'il n'y en a pas.\n5. Termine par un verdict : conforme ou non conforme.\n\nFormat de la réponse :\n- **Verdict** : conforme ou non conforme.\n- **Constats bloquants** : fichier, ligne, cause, correction.\n- **Constats majeurs** : fichier, ligne, cause, correction.\n- **Constats mineurs** : fichier, ligne, cause, correction.\n- **Points vérifiés sans problème** : une ligne.",
+    "source": "Commande · /revue"
+  },
+  {
+    "id": "test",
+    "titre": "Lancer et réparer les tests",
+    "description": "Lance les tests du projet, analyse chaque échec et propose une correction minimale sans élargir le périmètre du changement.",
+    "tags": ["tests", "débogage", "qualité"],
+    "contenu": "---\ndescription: Lancer les tests et proposer une correction minimale\n---\n\nLance les tests du projet et traite les échecs.\n\nCible : $ARGUMENTS\n\nPoints de contrôle :\n1. Commence par la suite la plus proche du code modifié.\n2. Lis le message d'échec complet avant de proposer quoi que ce soit.\n3. Corrige la cause, pas le test, sauf si le test est faux.\n4. Ne désactive, ne saute et ne supprime aucun test.\n5. Relance la suite après correction et rapporte le résultat.\n\nFormat de la réponse :\n- **Échec** : test concerné et message d'erreur résumé.\n- **Cause** : une phrase.\n- **Correction** : le diff minimal proposé.\n- **Vérification** : commande à relancer et résultat attendu.",
+    "source": "Commande · /test"
+  },
+  {
+    "id": "explique",
+    "titre": "Expliquer un module",
+    "description": "Explique un fichier ou un module à une personne qui découvre le projet, en partant du rôle du code puis en descendant vers les détails utiles.",
+    "tags": ["explication", "lecture", "onboarding"],
+    "contenu": "---\ndescription: Expliquer un fichier ou un module à une personne qui arrive sur le projet\n---\n\nExplique le fichier ou le module demandé à quelqu'un qui découvre le projet.\n\nSujet : $ARGUMENTS\n\nPoints de contrôle :\n1. Commence par le rôle du fichier dans l'ensemble, en deux phrases.\n2. Décris les fonctions et les types exportés, dans l'ordre d'utilisation.\n3. Signale les dépendances et les effets de bord.\n4. Cite les lignes importantes avec leur numéro.\n5. Évite le jargon inutile et les détails qui ne servent pas à lire le code.\n\nFormat de la réponse :\n- **Rôle** : deux phrases.\n- **Parcours de lecture** : trois à cinq étapes ordonnées.\n- **Points d'attention** : pièges ou conventions à connaître.\n- **À lire ensuite** : un ou deux fichiers liés.",
+    "source": "Commande · /explique"
+  },
+  {
+    "id": "plan",
+    "titre": "Plan d'action",
+    "description": "Transforme une demande en plan d'action court, découpé en étapes vérifiables, avec les fichiers concernés et un critère de réussite par étape.",
+    "tags": ["plan", "méthode", "organisation"],
+    "contenu": "---\ndescription: Transformer une demande en plan d'action court et vérifiable\n---\n\nTransforme la demande en un plan d'action court, sans écrire de code.\n\nDemande : $ARGUMENTS\n\nPoints de contrôle :\n1. Reformule l'objectif en une phrase, avec le résultat attendu.\n2. Découpe le travail en trois à six étapes ordonnées.\n3. Donne pour chaque étape les fichiers concernés et un critère de réussite vérifiable.\n4. Signale les risques, les inconnues et les décisions à prendre.\n5. Ne prévois aucune étape qui ne serve pas l'objectif.\n\nFormat de la réponse :\n- **Objectif** : une phrase.\n- **Étapes** : liste numérotée, une ligne par étape avec son critère.\n- **Risques** : deux ou trois puces.\n- **Première action** : la commande ou le fichier à ouvrir.",
+    "source": "Commande · /plan"
+  }
+]

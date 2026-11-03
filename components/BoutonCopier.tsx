@@ -2,7 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-export default function BoutonCopier({ texte }: { texte: string }) {
+export default function BoutonCopier({
+  texte,
+  libelle = "Copier le prompt",
+}: {
+  texte: string;
+  libelle?: string;
+}) {
   const [copie, setCopie] = useState(false);
   const [erreur, setErreur] = useState(false);
 
@@ -40,12 +46,12 @@ export default function BoutonCopier({ texte }: { texte: string }) {
   return (
     <div className="copier-prompt">
       <button type="button" className="bouton-copier" onClick={copier}>
-        {copie ? "Copié !" : "Copier le prompt"}
+        {copie ? "Copié !" : libelle}
       </button>
 
       {copie && (
         <p className="copie-reussie" role="status">
-          Prompt copié dans le presse-papiers.
+          Contenu copié dans le presse-papiers.
         </p>
       )}
 

@@ -1,6 +1,6 @@
 # Prompthèque
 
-Les prompts de la semaine 1 de la formation, rangés et cherchables : une recherche sur l'accueil, une page par prompt avec l'estimation de ses tokens et de son coût d'envoi, et une petite API. Next.js 16, React 19, TypeScript. Aucune base de données, aucun secret.
+Les prompts de la semaine 1 de la formation, rangés et cherchables, avec un menu latéral qui mène aussi aux MCP, aux commandes et aux skills. Chaque fiche a sa page, son bouton de copie et, pour les prompts, l'estimation de ses tokens et de son coût d'envoi. Next.js 16, React 19, TypeScript. Aucune base de données, aucun secret.
 
 ## Lancer
 
@@ -22,7 +22,7 @@ npm run test:e2e  # tests navigateur Playwright
 
 Au premier lancement, installer le navigateur Playwright : `npx playwright install chromium`.
 
-Les tests Playwright démarrent le serveur de développement si nécessaire (ou réutilisent celui qui écoute déjà sur le port 3000), parcourent toutes les fiches accessibles depuis l'accueil et vérifient que le bouton « Copier le prompt » alimente le presse-papiers avec le texte complet.
+Les tests Playwright démarrent le serveur de développement si nécessaire (ou réutilisent celui qui écoute déjà sur le port 3000), parcourent les fiches accessibles depuis chaque onglet et vérifient que le bouton de copie alimente le presse-papiers avec le contenu complet.
 
 ## Construire
 
@@ -33,17 +33,22 @@ npm start
 
 ## La recherche
 
-La recherche filtre les prompts sur leur titre, leur texte et leurs tags. Elle ignore la casse et les accents : « securite » trouve les prompts marqués « sécurité ».
+La recherche filtre les fiches sur leur titre, leur texte, leur description, leur contenu et leurs tags. Elle ignore la casse. Elle ne retire pas encore les accents : « securite » ne trouve pas les fiches marquées « sécurité ».
 
 ## Organisation
 
-- `app/` : l'accueil, la page d'un prompt (`app/prompt/[id]/`) et l'API `GET /api/prompts`.
+- `app/` : l'accueil des prompts, les onglets `/mcp`, `/commandes` et `/skills`, une page par fiche, l'API `GET /api/prompts` et l'API `GET /api/ressources/[type]`.
+- `components/MenuLateral.tsx` : le menu des quatre onglets et leur compteur.
 - `components/Recherche.tsx` : le champ de recherche et la grille des prompts.
-- `components/BoutonCopier.tsx` : le bouton de copie du prompt dans le presse-papiers.
-- `lib/` : la recherche, l'estimation des tokens, le coût d'envoi, les tarifs des modèles, l'export en Markdown.
-- `data/prompts.json` : les prompts.
+- `components/Catalogue.tsx` : le champ de recherche et la grille des MCP, commandes et skills.
+- `components/FicheRessource.tsx` : la page commune d'une ressource.
+- `components/BoutonCopier.tsx` : le bouton de copie dans le presse-papiers.
+- `lib/` : la recherche, les ressources, l'estimation des tokens, le coût d'envoi, les tarifs des modèles, l'export en Markdown.
+- `data/prompts.json`, `data/mcp.json`, `data/commandes.json`, `data/skills.json` : le contenu des onglets.
 - `prompteque.config.json` : les réglages (titre, devise, modèle par défaut, prompts par page).
 - `tests/` : les tests Vitest ; `tests/e2e/` : les tests Playwright.
+
+Le contenu initial de `data/mcp.json`, `data/commandes.json` et `data/skills.json` a été rédigé par le modèle gratuit `opencode/deepseek-v4.1-flash-free` lancé en mode headless (`opencode run`), un run par onglet, puis validé (JSON, ids uniques, schéma).
 
 ## Ajouter un prompt
 
@@ -61,3 +66,20 @@ Chaque prompt de `data/prompts.json` suit le même schéma :
 ```
 
 `id` unique, en minuscules avec des tirets ; `jour` de 1 à 10 ; `tags` en minuscules.
+
+## Ajouter un MCP, une commande ou une skill
+
+Les trois fichiers `data/mcp.json`, `data/commandes.json` et `data/skills.json` partagent le même schéma :
+
+```json
+{
+  "id": "context7",
+  "titre": "Context7, la documentation à jour",
+  "description": "Une à deux phrases qui expliquent le service et son intérêt.",
+  "tags": ["documentation", "mcp", "recherche"],
+  "contenu": "Le bloc de configuration, la commande ou le fichier SKILL.md complet.",
+  "source": "MCP · documentation"
+}
+```
+
+`id` unique dans son fichier, en minuscules avec des tirets. Pour un MCP, `contenu` est un extrait de configuration `opencode.json` ; pour une commande, le Markdown de `.opencode/commands/` ; pour une skill, le `SKILL.md` de `.opencode/skills/<id>/`.
