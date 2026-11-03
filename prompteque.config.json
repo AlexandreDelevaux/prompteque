@@ -1,0 +1,6 @@
+{
+  "titre": "Prompthèque",
+  "devise": "EUR",
+  "modeleParDefaut": "deepseek-v4.1-flash",
+  "promptsParPage": 6
+}

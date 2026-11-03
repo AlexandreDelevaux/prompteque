@@ -1,0 +1,98 @@
+[
+  {
+    "id": "installer-son-poste",
+    "titre": "Installer son poste avec l'agent",
+    "jour": 1,
+    "tags": ["installation", "opencode", "outils"],
+    "texte": "Je suis sur [macOS 15 / Ubuntu 24.04 / ma distribution et sa version].\nJe veux installer OpenCode, l'agent de code open source (opencode.ai), dans sa version 2. Si la version 2 ne s'installe pas sur mon système, on installe la version 1 à la place : les deux ne doivent jamais être installées en même temps.\nEnsuite, vérifie que git, Node.js (version LTS) et npm sont présents, et installe la CLI GitHub (gh).\nPuis aide-moi à créer une clé SSH, à l'ajouter à mon compte GitHub, et à connecter gh à mon compte.\nEnfin, installe gitleaks en version 8.19 ou plus récente (pas une version plus ancienne venue d'un gestionnaire de paquets).\nDonne-moi les commandes une par une, en attendant que je te confirme que chaque étape a réussi avant de passer à la suivante.\nPour chaque commande, explique-moi en une phrase ce qu'elle fait et si elle nécessite les droits administrateur.\nJe ne veux aucune commande qui modifie mon système en profondeur sans me prévenir.",
+    "source": "J1 · atelier installation"
+  },
+  {
+    "id": "kit-gh",
+    "titre": "Le kit gh en trois demandes",
+    "jour": 2,
+    "tags": ["github", "gh", "terminal"],
+    "texte": "Installe gh, la ligne de commande de GitHub, avec le gestionnaire de paquets de ma machine (winget sous Windows). Explique la commande avant de la lancer.\n\nConnecte gh à mon compte GitHub avec « gh auth login --web --git-protocol https », avec un délai de 5 minutes pour cette commande : je valide le code dans mon navigateur.\n\nVérifie avec gh auth status, et montre-moi le résultat.",
+    "source": "J2 · kit gh"
+  },
+  {
+    "id": "premier-depot-prive",
+    "titre": "Un premier dépôt privé",
+    "jour": 2,
+    "tags": ["git", "github", "dépôt"],
+    "texte": "Initialise git dans ce dossier avec la branche main, commite AGENTS.md avec le message « docs: règles du projet », puis crée le dépôt GitHub PRIVÉ du même nom avec gh et pousse. Une commande à la fois, et explique-moi chacune avant de la lancer.",
+    "source": "J2 · premier dépôt privé"
+  },
+  {
+    "id": "hook-gitleaks",
+    "titre": "Un hook gitleaks avant chaque commit",
+    "jour": 3,
+    "tags": ["sécurité", "git", "gitleaks"],
+    "texte": "Installe gitleaks (version 8.19 ou plus) et vérifie avec gitleaks version. Puis pose un hook git pre-commit qui lance « gitleaks git --pre-commit --staged --redact --no-banner -v ». Prouve-le dans les deux sens : un commit d'un README sans secret doit passer, et un commit d'un fichier fuite.ts contenant la fausse clé que je te donne doit être refusé. Ensuite, retire fuite.ts de l'index et supprime-le.",
+    "source": "J3 · atelier gitleaks"
+  },
+  {
+    "id": "dossier-dotfiles",
+    "titre": "Ranger ses règles dans dotfiles",
+    "jour": 3,
+    "tags": ["dotfiles", "configuration", "agents.md"],
+    "texte": "Crée le dossier dotfiles à la racine de mon dossier personnel, et déplace-y le fichier formation/essai/projet/AGENTS.md. Puis pose la variable d'environnement utilisateur OPENCODE_CONFIG_DIR, de façon permanente, avec le chemin complet de ce dossier dotfiles (sous Windows avec setx, sous macOS avec une ligne dans ~/.zshrc). Explique chaque commande avant de la lancer, puis rappelle-moi de fermer et de rouvrir mon terminal.",
+    "source": "J3 · portée des règles"
+  },
+  {
+    "id": "skill-commit-propre",
+    "titre": "La skill commit-propre",
+    "jour": 3,
+    "tags": ["skill", "git", "méthode"],
+    "texte": "---\nname: commit-propre\ndescription: Message de commit clair, quand je demande de commiter.\n---\n\nRédige le message au format type: description, en français, à l'impératif.\nTypes : feat, fix, docs, refactor, test, chore.\nUne ligne de moins de 70 caractères, puis une ligne vide, puis le pourquoi si besoin.\nMontre-moi le message avant de commiter.",
+    "source": "J3 · première skill"
+  },
+  {
+    "id": "raconter-legacy",
+    "titre": "Raconter un code repris",
+    "jour": 4,
+    "tags": ["plan", "lecture", "legacy"],
+    "texte": "Lis legacy_stock.py et raconte-le-moi comme si j'arrivais sur le projet aujourd'hui : que fait ce programme, quelles sont ses entrées et ses sorties, quelles sont les zones les plus risquées à modifier, et pourquoi. Ne modifie rien.",
+    "source": "J4 · atelier legacy_stock"
+  },
+  {
+    "id": "filet-de-tests",
+    "titre": "Le filet, avant de toucher",
+    "jour": 4,
+    "tags": ["tests", "pytest", "legacy"],
+    "texte": "Écris test_legacy_stock.py avec pytest, qui capture le comportement ACTUEL des fonctions principales, y compris ce qui te semble bizarre. Ne corrige rien : les tests doivent passer sur le code tel quel. Installe pytest si besoin, lance les tests et montre-moi le résultat. Explique en une ligne ce que chaque test protège.",
+    "source": "J4 · atelier legacy_stock"
+  },
+  {
+    "id": "chasse-au-bug",
+    "titre": "La chasse au bug silencieux",
+    "jour": 4,
+    "tags": ["bug", "tests", "legacy"],
+    "texte": "Il y a un bug métier silencieux dans ce fichier : il ne plante pas, il produit un résultat faux. Trouve-le, explique-moi dans quelles conditions il se déclenche et ce qu'il produit de faux, puis corrige-le et écris le test qui prouve qu'il ne reviendra pas. Montre-moi la sortie avant et après.",
+    "source": "J4 · atelier legacy_stock, bonus"
+  },
+  {
+    "id": "landing-un-fichier",
+    "titre": "Une landing en un seul fichier",
+    "jour": 4,
+    "tags": ["landing", "html", "génération"],
+    "texte": "Génère une landing page complète en UN SEUL fichier HTML (CSS inclus dans la page) pour mon projet. L'idée en une phrase : « [connu], mais [ce qui change] ». Je veux : un titre accrocheur, une section « fonctionnalités » en 3 colonnes, un bouton d'appel à l'action, ambiance sombre, accents dorés. Réponds uniquement avec le code.",
+    "source": "J4 · landing locale"
+  },
+  {
+    "id": "verifier-avant-publier",
+    "titre": "Vérifier avant de publier",
+    "jour": 5,
+    "tags": ["sécurité", "gitleaks"],
+    "texte": "Vérifie que le hook pre-commit gitleaks de ce dépôt est toujours en place. Puis passe gitleaks sur tout l'historique avec « gitleaks git --redact --no-banner -v » et résume-moi le résultat en une ligne. Ne modifie rien.",
+    "source": "J5 · avant la mise en ligne"
+  },
+  {
+    "id": "mise-en-ligne",
+    "titre": "Préparer la mise en ligne",
+    "jour": 5,
+    "tags": ["vercel", "github", "pull-request"],
+    "texte": "Prépare la mise en ligne de ma landing sur Vercel. Crée une branche « mise-en-ligne » à partir de main. Récupère ma landing, landing-locale.html (sur la branche landing-locale, ou dans le dossier si elle n'a jamais été commitée), et place-la à la racine sous le nom index.html, avec les images ou fichiers qu'elle utilise. Vérifie qu'aucun secret ni chemin de ma machine (comme C:\\Users ou /Users) ne traîne dedans. Fais un commit, pousse la branche, puis ouvre une pull request vers main avec gh. Ne fusionne pas : c'est moi qui relis et qui fusionne.",
+    "source": "J5 · landing en ligne"
+  }
+]
