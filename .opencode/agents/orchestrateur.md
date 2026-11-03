@@ -84,7 +84,7 @@ Avant de rédiger, note le nombre d'entrées et la liste des ids de `data/prompt
    Si le fichier n'a pas bougé, ou si une fiche manque : arrête-toi, ne fais pas relire, et rapporte `CURATEUR: échec`.
 5. **Fais relire par le sous-agent `relecteur`**, avec un périmètre explicite :
 
-   > Relis les nouvelles entrées « <id1, id2, …> » de `data/prompts.json`. Périmètre : ces entrées seulement. Le dossier n'est pas un dépôt git : lis le fichier directement avec `read`.
+   > Relis les nouvelles entrées « <id1, id2, …> » de `data/prompts.json`. Périmètre : ces entrées seulement. Le dossier est un dépôt git : tu peux t'appuyer sur `git diff` et lire le fichier avec `read`.
    > Contrôle le schéma, l'exactitude factuelle, les consignes contradictoires ou dangereuses, le français et le ton.
    > Termine par « VERDICT: conforme » ou « VERDICT: non conforme ».
 

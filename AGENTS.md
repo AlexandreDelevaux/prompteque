@@ -18,7 +18,7 @@ Node >= 22.12.
 
 - Install: `npm install`
 - Dev: `npm run dev`
-- Unit tests: `npm test` (Vitest, `tests/recherche.test.ts`; e2e excluded in `vitest.config.mts`)
+- Unit tests: `npm test` (Vitest, `tests/*.test.ts`; e2e excluded in `vitest.config.mts`)
 - Single unit test: `npx vitest run tests/recherche.test.ts -t "ignore la casse"`
 - Browser tests: `npm run test:e2e` (Playwright; specs in `tests/e2e/`; first run needs `npx playwright install chromium`)
 - Single browser test: `npx playwright test tests/e2e/copier-prompt.spec.ts -g "chaque fiche"`
@@ -50,14 +50,14 @@ On this machine Node is not on PATH. Prefix commands with
 
 `.opencode/agents/` définit la chaîne éditoriale :
 
-- `orchestrateur` (primary) : rédige la fiche, puis fait écrire et relire. `edit` et `shell` sont refusés : il ne modifie jamais un fichier lui-même.
-- `orchestrateur-bilan` (primary) : en fin de session, critique les prompts et la conversation, en tire une à trois fiches, les fait écrire par le curateur, vérifie le fichier, puis fait relire. Même refus de `edit` et `shell`.
+- `orchestrateur` (primary) : fait le bilan de fin de session, en tire les fiches, les fait écrire par le curateur, vérifie le fichier, puis fait relire. `edit` et `shell` sont refusés : il ne modifie jamais un fichier lui-même.
 - `curateur` (all) : seul agent autorisé à écrire dans `data/prompts.json`.
 - `relecteur` (subagent) : relit le périmètre qu'on lui donne et termine par `VERDICT: conforme` ou `VERDICT: non conforme`.
+- `inspecteur` (subagent, lecture seule) : contrôle le travail réalisé, le périmètre, la cohérence et les tests, puis rend un verdict `VALIDÉ`, `À CORRIGER` ou `BLOQUÉ`. Il ne modifie jamais un fichier.
 
-La commande `/fin-de-session` lance `orchestrateur-bilan` ; son périmètre est passé en argument (« rapide » pour un bilan court).
+La commande `/fin-de-session` lance `orchestrateur` ; son périmètre est passé en argument (« rapide » pour un bilan court).
 
-Les orchestrateurs ne peuvent lancer que `curateur` et `relecteur`. Le dossier n'est pas un dépôt git : le relecteur lit les fichiers directement, il ne peut pas s'appuyer sur `git diff`.
+L'orchestrateur ne peut lancer que `curateur` et `relecteur` ; l'agent primaire peut lancer `inspecteur`. Le dossier est un dépôt git : `relecteur` reste en lecture seule, et `inspecteur` peut utiliser `git status`, `git diff`, `git log`, `git show` et `git branch --show-current`.
 
 ## Known inconsistencies (verify intent before "fixing")
 
