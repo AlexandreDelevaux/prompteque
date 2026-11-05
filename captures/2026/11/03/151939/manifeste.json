@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-03T14:19:39.678Z",
+  "commit": "9a5aed5cbbb50cb42740aa754bd12afcf56d6d1d",
+  "branche": "main",
+  "url": "http://localhost:3000",
+  "dossier": "captures/2026/11/03/151939",
+  "captures": [
+    {
+      "page": "/",
+      "format": "desktop",
+      "fichier": "01-accueil-desktop.png",
+      "largeur": 1440,
+      "hauteur": 1000
+    },
+    {
+      "page": "/mcp",
+      "format": "desktop",
+      "fichier": "02-mcp-desktop.png",
+      "largeur": 1440,
+      "hauteur": 1000
+    },
+    {
+      "page": "/mcp/context7",
+      "format": "desktop",
+      "fichier": "03-mcp-detail-desktop.png",
+      "largeur": 1440,
+      "hauteur": 1000
+    },
+    {
+      "page": "/commandes",
+      "format": "desktop",
+      "fichier": "04-commandes-desktop.png",
+      "largeur": 1440,
+      "hauteur": 1000
+    },
+    {
+      "page": "/commandes/inspection",
+      "format": "desktop",
+      "fichier": "05-commande-detail-desktop.png",
+      "largeur": 1440,
+      "hauteur": 1000
+    },
+    {
+      "page": "/skills",
+      "format": "desktop",
+      "fichier": "06-skills-desktop.png",
+      "largeur": 1440,
+      "hauteur": 1000
+    },
+    {
+      "page": "/skills/inspection-visuelle",
+      "format": "desktop",
+      "fichier": "07-skill-detail-desktop.png",
+      "largeur": 1440,
+      "hauteur": 1000
+    },
+    {
+      "page": "/",
+      "format": "mobile",
+      "fichier": "01-accueil-mobile.png",
+      "largeur": 390,
+      "hauteur": 844
+    },
+    {
+      "page": "/mcp",
+      "format": "mobile",
+      "fichier": "02-mcp-mobile.png",
+      "largeur": 390,
+      "hauteur": 844
+    },
+    {
+      "page": "/commandes",
+      "format": "mobile",
+      "fichier": "04-commandes-mobile.png",
+      "largeur": 390,
+      "hauteur": 844
+    },
+    {
+      "page": "/skills",
+      "format": "mobile",
+      "fichier": "06-skills-mobile.png",
+      "largeur": 390,
+      "hauteur": 844
+    }
+  ]
+}
